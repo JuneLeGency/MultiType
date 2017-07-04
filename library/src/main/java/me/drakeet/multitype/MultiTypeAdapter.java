@@ -16,6 +16,10 @@
 
 package me.drakeet.multitype;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,9 +28,6 @@ import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author drakeet
@@ -35,7 +36,7 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private static final String TAG = "MultiTypeAdapter";
 
-    private @NonNull List<?> items;
+    protected  @NonNull List<?> items;
     private @NonNull TypePool typePool;
     protected @Nullable LayoutInflater inflater;
 
@@ -228,7 +229,7 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
 
 
     @Override @SuppressWarnings("unchecked")
-    public final void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
+    public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
         Object item = items.get(position);
         ItemViewBinder binder = typePool.getItemViewBinders().get(holder.getItemViewType());
         binder.onBindViewHolder(holder, item, payloads);
